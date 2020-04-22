@@ -5,6 +5,10 @@ const Author=require("./author");
 
 //create schema
 const schema = mongoose.Schema({
+owner: {
+    type: Object,
+    require: [true, "Blog must have an owner"]
+},
 title: {
     type: String,
     required: [true,"Book's title is required"],
