@@ -4,7 +4,7 @@ exports.createBook = async function (req, res) {
     const { title, description, genres, author } = req.body;
     const book = await new Book({
         owner: {
-            _id: req.user._id,
+            _id: req.user._id, 
             name: req.user.name,
             email: req.user.email
           },
@@ -17,23 +17,26 @@ exports.createBook = async function (req, res) {
     return res.json({ status: "ok", data: book })
 }
 
-
-// exports.readBooks = async function (req, res) {
-//     const books = await Book.find();
-//     return res.status(200).json({ status: "ok", data: books })
-// }
-
-//is having issue: can't find  req.user._id
-exports.readBooks = async (req, res) => {
+//READ ALL BOOKS:
+exports.readBooks = async (req, res) => {    
     try {
-    //   const books = await Book.find({ "owner._id": req.user._id });
-          const books = await Book.find();
-
+      const books = await Book.find();
       res.status(200).json({ status: "successfully show all books", data: books });
     } catch (error) {
       res.status(400).json({ status: "fail to show all books", message: error.message });
     };
   };
+
+  //READ ALL BOOKS FROM OWNER:
+  exports.readMyBooks = async (req, res) => {
+    try {
+      const books = await Book.find({"owner._id": req.user._id});
+      res.status(200).json({ status: "successfully show all your books", data: books });
+    } catch (error) {
+      res.status(400).json({ status: "fail to show all your books", message: error.message });
+    };
+  };
+
 
 
 exports.deleteBook=async(req,res)=>{

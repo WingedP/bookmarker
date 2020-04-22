@@ -21,6 +21,9 @@ return res.status(400).json({status:"fail. not login",error: err.message})
 
 
 const jwt = require("jsonwebtoken");
+
+
+
 exports.auth = async (req, res, next) => {
     // make sure we get the token
     console.log("AUTHORIZED TOKEN",req.headers.authorization)

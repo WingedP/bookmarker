@@ -4,7 +4,7 @@ const mongoose=require("mongoose");
 const bodyParser=require("body-parser");
 const {readAuthor, createAuthor, updateAuthor, deleteAuthor}=require("./src/controllers/authorControllers");
 const {readGenres, createGenre, deleteGenre}=require("./src/controllers/genreControllers");
-const {createBook, readBooks, deleteBook}=require("./src/controllers/bookControllers");
+const {createBook, readBooks, deleteBook, readMyBooks }=require("./src/controllers/bookControllers");
 const {createUser}=require("./src/controllers/userControllers");
 const {auth, login, logout, logoutAll}=require("./src/controllers/authControllers");
 
@@ -44,6 +44,8 @@ router.delete("/genres/:id",deleteGenre)
 router.route("/books")
 .post(auth,createBook)
 .get(readBooks)
+
+router.route("/books/me").get(auth, readMyBooks)
 router.delete("/books/:id",auth, deleteBook)
 
 //USER ROUTES:
